@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FoodBridge · Good Food. Shared Hope.</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js" defer></script>
+<style>
+:root{--g:#216B45;--d:#153B2B;--c:#FAF8F1;--o:#E8892B;--line:#e2e0d6;--ink:#1c2b24;--mute:#5f6e66;--bad:#b3261e}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:15px/1.55 Inter,system-ui,sans-serif;background:var(--c);color:var(--ink)}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--o);outline-offset:2px}
+i[data-lucide],svg.lucide{width:18px;height:18px;vertical-align:-3px}
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.bar{max-width:1180px;margin:auto;padding:10px 20px;display:flex;align-items:center;gap:16px}
+.logo{display:flex;gap:8px;align-items:center;font-weight:700;color:var(--d);font-size:1.15rem}.logo i{color:var(--g)}
+nav{display:flex;gap:2px;flex:1;flex-wrap:wrap}nav a{padding:6px 10px;border-radius:6px;color:var(--mute);font-weight:500;font-size:14px}nav a:hover,nav a.on{background:#eaf3ee;color:var(--g)}
+#burger{display:none;margin-left:auto}
+.btn{display:inline-flex;gap:6px;align-items:center;padding:9px 16px;border-radius:8px;border:1px solid var(--g);background:var(--g);color:#fff;font:600 14px Inter,system-ui;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--d)}.btn.o{background:#fff;color:var(--g)}.btn.o:hover{background:#eaf3ee}.btn.r{background:var(--bad);border-color:var(--bad)}.btn.s{padding:5px 10px;font-size:13px}.btn[disabled]{opacity:.45;cursor:not-allowed}
+main{max-width:1180px;margin:auto;padding:24px 20px 60px}
+h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin:.2em 0;letter-spacing:-.02em}h2{font-size:1.6rem;margin:1.4em 0 .5em;color:var(--d)}h3{margin:0 0 4px;font-size:1.05rem}
+.ph{position:relative;background:linear-gradient(135deg,var(--g),var(--d));overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph.no::after{content:"Photo unavailable";position:absolute;inset:0;display:grid;place-items:center;color:#ffffffaa;font-size:13px}
+.hero{border-radius:16px;min-height:430px;color:#fff;display:flex;align-items:end}.hero>img{position:absolute;inset:0}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0f2a1ecc,#0f2a1e55);z-index:1}.hero .in{position:relative;z-index:2;padding:36px;max-width:680px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 3px #0000000d;overflow:hidden;transition:.15s}.card:hover{box-shadow:0 6px 18px #0000001a}.pad{padding:16px}
+.pc{min-height:210px;color:#fff;display:flex;align-items:end;border-radius:12px}.pc>img{position:absolute;inset:0}.pc::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0f2a1ee6,#0f2a1e22);z-index:1}.pc div{position:relative;z-index:2;padding:16px}
+.k{font-size:1.9rem;font-weight:700;color:var(--g)}.m{color:var(--mute);font-size:13px}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;background:#e6f2eb;color:var(--g)}.tag.w{background:#fdecd6;color:#a85a00}.tag.b{background:#fbe3e0;color:var(--bad)}.tag.n{background:#ececec;color:#555}
+.urgent{color:#b8610f;font-weight:600}
+label{display:block;font-size:13px;font-weight:600;margin:10px 0 3px}input,select,textarea{width:100%;font:inherit;padding:9px 11px;border:1px solid #cfcdc2;border-radius:8px;background:#fff}
+.err{color:var(--bad);font-size:12px;min-height:1em}input.bad,select.bad,textarea.bad{border-color:var(--bad)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.f{display:flex;flex-wrap:wrap;gap:10px;align-items:end}.f>*{flex:1;min-width:140px}.f>.btn{flex:none}
+.note{background:#fff7ea;border-left:3px solid var(--o);padding:10px 14px;border-radius:6px;font-size:13px;margin:12px 0}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:14px}th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}th{background:#f2f0e6;font-size:12px}
+.flow{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}.flow span{font-size:11px;padding:2px 7px;border-radius:99px;background:#eee;color:#777}.flow span.on{background:var(--g);color:#fff}.flow span.done{background:#cfe6d8;color:var(--d)}
+.bars{display:flex;align-items:end;gap:10px;height:150px}.bars div{flex:1;text-align:center;font-size:11px}.bars b{display:block;background:var(--g);border-radius:4px 4px 0 0;min-height:3px}
+.hb{display:flex;align-items:center;gap:8px;font-size:13px;margin:5px 0}.hb b{height:10px;background:var(--g);border-radius:3px;display:block}.hb span:first-child{width:130px}
+dialog{border:0;border-radius:14px;padding:0;max-width:560px;width:92vw;box-shadow:0 20px 60px #0004}dialog::backdrop{background:#0008}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--d);color:#fff;padding:10px 16px;border-radius:8px;display:none;z-index:50;max-width:92vw}
+footer{background:var(--d);color:#cfe0d6;padding:30px 20px;font-size:14px}footer .bar{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}footer a{display:block;color:#fff}
+.empty{text-align:center;padding:40px;color:var(--mute);border:1px dashed #cfcdc2;border-radius:12px}
+.auth{max-width:900px;margin:0 auto;display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:start}.auth h2{margin-top:0}.auth1{max-width:480px;margin:0 auto}
+.pw{position:relative}.pw input{padding-right:72px}.pw .btn{position:absolute;right:5px;top:50%;transform:translateY(-50%)}
+.acct{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+code{background:#eaf3ee;padding:1px 6px;border-radius:4px;font-size:13px}
+.me{display:inline-flex;gap:8px;align-items:center}.mob{display:none}
+@media(max-width:820px){.auth{grid-template-columns:1fr}.mob{display:block}#burger{display:inline-flex}nav{display:none;order:5;width:100%;flex-direction:column}nav.open{display:flex}.bar{flex-wrap:wrap}.hdrcta{display:none}
+ .rt thead{display:none}.rt tr{display:block;margin:10px 0;border:1px solid var(--line);border-radius:10px;background:#fff;padding:6px}.rt td{display:flex;justify-content:space-between;gap:10px;border:0;padding:4px 8px}.rt td::before{content:attr(data-l);color:var(--mute);font-size:12px}}
+@media print{header,footer,.noprint{display:none!important}body{background:#fff}main{padding:0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style></head><body>
+<header><div class="bar"><a href="#/home" class="logo"><i data-lucide="hand-heart"></i>FoodBridge</a>
+<button class="btn o s" id="burger" aria-label="Menu" aria-expanded="false"><i data-lucide="menu"></i></button>
+<nav id="nav" aria-label="Main"></nav><span class="hdrcta"><span id="auth" class="me"></span> <a class="btn s" href="#/donate">Donate Food</a></span></div></header>
+<main id="app"></main>
+<footer><div class="bar"><div><strong style="color:#fff">FoodBridge</strong><br>Good Food. Shared Hope.<br>College project demo (CSE326). Not a real service.</div>
+<div>Contact (placeholders)<br>hello@example.org · +00 000 000 0000<br>Campus address placeholder</div><div><a href="#/listings">Food listings</a><a href="#/impact">Impact</a><a href="#/about">About</a></div></div></footer>
+<dialog id="dlg"></dialog><dialog id="cf"><div class="pad"><p id="cfm"></p><div class="f" style="justify-content:end"><button class="btn o" id="cfn">Keep</button><button class="btn r" id="cfy">Confirm</button></div></div></dialog><div id="toast" role="status"></div>
+<script>
+/* ===== Image sources (swap for local assets; remote URLs are unverified and fall back gracefully) ===== */
+const U=id=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=1000&q=70`;
+const IMG={hero:U('photo-1593113598332-cd288d649433'),donate:U('photo-1488521787991-ed7bbaae773c'),find:U('photo-1547592180-85f173990554'),vol:U('photo-1559027615-cd4628902d4a'),
+ g1:U('photo-1593113598332-cd288d649433'),g2:U('photo-1488521787991-ed7bbaae773c'),g3:U('photo-1559027615-cd4628902d4a'),g4:U('photo-1469571486292-0ba58a3f068b'),
+ f1:U('photo-1547592180-85f173990554'),f2:U('photo-1555939594-58d7cb561ad1'),f3:U('photo-1509440159596-0249088772ff'),f4:U('photo-1540189549336-e6e99c3679fe')};
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pic=(k,alt,cls='')=>`<div class="ph ${cls}"><img src="${IMG[k]||''}" alt="${esc(alt)}" loading="lazy" onerror="this.parentElement.classList.add('no');this.remove()"></div>`;
+/* ===== Mock data (sample/demo; replace with API calls later via the store functions) ===== */
+const KEY='fb_front_v1',HR=3600e3,at=h=>new Date(Date.now()+h*HR).toISOString();
+const seed=()=>({don:[
+ {id:'D1',title:'Wedding buffet surplus: dal, rice, sabzi',cat:'Cooked meals',veg:'Vegetarian',donor:'Royal Gardens Banquet (demo)',qty:42,serv:120,prep:at(-2),deadline:at(3),addr:'MG Road, Sector 5',area:'Central',safety:'VERIFIED',status:'AVAILABLE',img:'f1',notes:'Packed in sealed steel containers.'},
+ {id:'D2',title:'Hotel breakfast breads and pastries',cat:'Bakery',veg:'Vegetarian',donor:'Lakeview Hotel (demo)',qty:12,serv:40,prep:at(-1),deadline:at(8),addr:'Lake Road 12',area:'North',safety:'VERIFIED',status:'AVAILABLE',img:'f2',notes:'Keep dry, consume within the day.'},
+ {id:'D3',title:'College mess dinner: roti and paneer curry',cat:'Cooked meals',veg:'Vegetarian',donor:'North Campus Mess (demo)',qty:30,serv:90,prep:at(-1),deadline:at(2),addr:'Hostel Block C',area:'Campus',safety:'PENDING',status:'AVAILABLE',img:'f3',notes:'Awaiting verification.'},
+ {id:'D4',title:'Corporate cafeteria lunch trays',cat:'Cooked meals',veg:'Non-vegetarian',donor:'TechPark Cafeteria (demo)',qty:25,serv:70,prep:at(-9),deadline:at(-1),addr:'TechPark Tower 2',area:'East',safety:'VERIFIED',status:'AVAILABLE',img:'f4',notes:''},
+ {id:'D5',title:'Fresh vegetables and fruit crates',cat:'Produce',veg:'Vegetarian',donor:'Green Basket Market (demo)',qty:60,serv:150,prep:at(-5),deadline:at(20),addr:'Mandi Gate 3',area:'South',safety:'VERIFIED',status:'ALLOCATED',img:'f1',notes:'Already allocated.'}],
+ dis:[
+ {id:'FB-1001',did:'D5',title:'Fresh vegetables and fruit crates',donor:'Green Basket Market (demo)',rec:'Hope Community Kitchen (demo)',vol:'Asha K. (demo)',status:'PICKUP_ASSIGNED',qty:60,serv:150,pk:null,dl:null,qc:null,qd:null,sc:null,cr:at(-6)},
+ {id:'FB-1002',title:'Banquet rice and curry',donor:'Royal Gardens Banquet (demo)',rec:'Shared Plate NGO (demo)',vol:'Ravi M. (demo)',status:'DISTRIBUTED',qty:38,serv:110,pk:at(-50),dl:at(-48),qc:38,qd:37,sc:100,cr:at(-52)},
+ {id:'FB-1003',title:'Bakery surplus',donor:'Lakeview Hotel (demo)',rec:'Hope Community Kitchen (demo)',vol:'Asha K. (demo)',status:'DELIVERED',qty:14,serv:45,pk:at(-26),dl:at(-25),qc:14,qd:14,sc:null,cr:at(-28)},
+ {id:'FB-1004',title:'Cafeteria lunch trays',donor:'TechPark Cafeteria (demo)',rec:'Shared Plate NGO (demo)',vol:null,status:'EXPIRED',qty:20,serv:55,pk:null,dl:null,qc:null,qd:null,sc:null,cr:at(-80)},
+ {id:'FB-1005',title:'Dinner roti and dal',donor:'North Campus Mess (demo)',rec:'Hope Community Kitchen (demo)',vol:null,status:'APPROVED',qty:22,serv:60,pk:null,dl:null,qc:null,qd:null,sc:null,cr:at(-1)}],
+ req:[{id:'R1',did:'D1',ngo:'Shared Plate NGO (demo)',st:'PENDING'},{id:'R2',did:'D2',ngo:'Hope Community Kitchen (demo)',st:'PENDING'}]});
+let S=JSON.parse(localStorage.getItem(KEY)||'null')||seed();const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+/* ===== Auth (DEMO ONLY: accounts and password live in this file, so this is NOT real security) ===== */
+const SK='fb_session_v1',DEMO_PW='Demo@1234';
+const ACCTS=[{email:'admin@foodbridge.demo',name:'Demo Admin',role:'ADMIN',home:'dash'},{email:'donor@foodbridge.demo',name:'Royal Gardens Banquet (demo)',role:'DONOR',home:'donate'},{email:'ngo@foodbridge.demo',name:'Hope Community Kitchen (demo)',role:'NGO',home:'network'},{email:'volunteer@foodbridge.demo',name:'Asha K. (demo)',role:'VOLUNTEER',home:'network'},{email:'recipient@foodbridge.demo',name:'Demo Recipient',role:'RECIPIENT',home:'listings'}];
+const user=()=>{try{return JSON.parse(sessionStorage.getItem(SK))}catch(e){return null}};
+function renderAuth(){const u=user();$('#auth').innerHTML=u?`<span class="tag" title="${esc(u.name)}">${esc(u.role)}</span><button class="btn o s" data-act="logout">Log out</button>`:'<a class="btn o s" href="#/login">Login</a>'}
+const FLOW=['AVAILABLE','REQUESTED','APPROVED','PICKUP_ASSIGNED','COLLECTED','DELIVERED','DISTRIBUTED'];
+const TR={APPROVED:['PICKUP_ASSIGNED','CANCELLED'],PICKUP_ASSIGNED:['COLLECTED','CANCELLED'],COLLECTED:['DELIVERED'],DELIVERED:['DISTRIBUTED']};
+const LBL={PICKUP_ASSIGNED:'Accept pickup / assign',COLLECTED:'Confirm pickup',DELIVERED:'Confirm delivery',DISTRIBUTED:'Confirm distribution'};
+const dstate=d=>d.status!=='AVAILABLE'?'unavailable':new Date(d.deadline)<new Date()?'expired':d.safety!=='VERIFIED'?'pending':'eligible';
+const SL={eligible:['Eligible',''],pending:['Pending verification','w'],expired:['Expired','b'],unavailable:['Unavailable','n']};
+const fm=s=>s?new Date(s).toLocaleString([], {dateStyle:'medium',timeStyle:'short'}):'-';
+const left=s=>{const m=Math.round((new Date(s)-Date.now())/6e4);return m<0?'Expired':m<60?m+' min left':Math.floor(m/60)+'h '+m%60+'m left'};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._);t._=setTimeout(()=>t.style.display='none',4000)};
+const ask=(m,fn)=>{$('#cfm').textContent=m;$('#cf').showModal();$('#cfy').onclick=()=>{$('#cf').close();fn()};$('#cfn').onclick=()=>$('#cf').close()};
+const tagOf=s=>`<span class="tag ${/CANCEL|EXPIRE|REJECT/.test(s)?'b':/PEND/.test(s)?'w':''}">${esc(s.replace('_',' '))}</span>`;
+function M(){const dl=S.dis,ok=dl.filter(d=>['DELIVERED','DISTRIBUTED'].includes(d.status));
+ return{total:S.don.length,kg:dl.reduce((a,d)=>a+(d.qc||0),0),est:S.don.filter(d=>dstate(d)==='eligible').reduce((a,d)=>a+d.serv,0),del:ok.length,pend:dl.filter(d=>['APPROVED','PICKUP_ASSIGNED'].includes(d.status)).length,conf:dl.reduce((a,d)=>a+(d.sc||0),0)}}
+/* ===== Pages ===== */
+const stat=(k,l)=>`<div class="card pad"><div class="k">${k}</div><div class="m">${l}</div></div>`;
+function card(d){const s=dstate(d),ok=s==='eligible';return `<article class="card">${pic(d.img,'Donated food: '+d.title,'')}<div class="pad"><div>${`<span class="tag ${SL[s][1]}">${SL[s][0]}</span>`} <span class="tag n">${esc(d.veg)}</span></div>
+ <h3 style="margin-top:8px">${esc(d.title)}</h3><p class="m">${esc(d.donor)}<br>${esc(d.cat)} · ${d.qty} kg · ~${d.serv} est. servings<br>${esc(d.addr)} (${esc(d.area)})<br>Prepared ${fm(d.prep)}<br><span class="${ok&&new Date(d.deadline)-Date.now()<4*HR?'urgent':''}">Pickup by ${fm(d.deadline)} · ${left(d.deadline)}</span><br>Safety: ${d.safety==='VERIFIED'?'verified (demo)':'not verified'}</p>
+ <div class="f"><button class="btn o s" data-act="view" data-id="${d.id}">View Details</button><button class="btn s" data-act="request" data-id="${d.id}" ${ok?'':'disabled'}>Request Food</button></div></div></article>`}
+const PG={
+home(){const f=S.don.filter(d=>dstate(d)==='eligible').slice(0,3),m=M();
+ return `<section class="ph hero">${pic('hero','Volunteers handling food donations')} <div class="in"><h1>Turn Surplus Food Into Shared Hope</h1><p>FoodBridge connects banquet halls, hotels, restaurants, messes and cafeterias with NGOs, community kitchens and volunteers, so safe surplus food reaches people instead of the bin.</p>
+ <div class="f" style="margin-top:14px"><a class="btn" style="background:var(--o);border-color:var(--o)" href="#/donate">Donate Surplus Food</a><a class="btn o" href="#/listings">Explore Available Food</a></div></div></section>
+ <p class="m">Demo statistics (sample data, stored only in this browser):</p><div class="grid">${stat(m.kg+' kg','Food recovered (demo)')}${stat(m.est,'Estimated servings available (not confirmed meals)')}${stat(m.del,'Deliveries (demo)')}${stat(m.conf,'Confirmed servings distributed (demo)')}</div>
+ <h2 id="how">How it works</h2><div class="grid">${[['package-plus','1. Donate','Donors list surplus food with quantity, preparation time and pickup deadline.'],['truck','2. Collect','Verified NGOs request it and volunteers pick it up before the deadline.'],['heart-handshake','3. Distribute','Food is delivered and the NGO confirms how many servings were actually served.']].map(x=>`<div class="card pad"><i data-lucide="${x[0]}" style="color:var(--g)"></i><h3>${x[1]}</h3><p class="m">${x[2]}</p></div>`).join('')}</div>
+ <div class="grid" style="margin-top:18px">${[['donate','Donate Food','#/donate'],['find','Find Food','#/listings'],['vol','Volunteer','#/network']].map(x=>`<a class="ph pc" href="${x[2]}">${pic(x[0],x[1]+' photo')}<div><h3>${x[1]}</h3><span class="m" style="color:#dfeee5">Open →</span></div></a>`).join('')}</div>
+ <h2>Featured donations</h2><div class="grid">${f.map(card).join('')||'<div class="empty">No eligible donations right now.</div>'}</div>
+ <h2>Food recovery in action</h2><div class="grid">${['g1','g2','g3','g4'].map((g,i)=>pic(g,['Volunteers carrying packed food boxes','Food donation being handed over','Volunteers sorting food','Community meal distribution'][i],'').replace('class="ph "','class="ph" style="height:180px;border-radius:12px" ')).join('')}</div>
+ <p class="m">Photos are illustrative stock images, not real FoodBridge beneficiaries.</p>`},
+dash(){const m=M(),cnt={};S.dis.forEach(d=>cnt[d.status]=(cnt[d.status]||0)+1);const mx=Math.max(1,...Object.values(cnt));
+ return `<h2>Dashboard</h2><div class="note">All figures are sample/demo data in your browser's localStorage. They update as you use the demo.</div><div class="grid">${stat(m.total,'Total donations')}${stat(m.kg+' kg','Food recovered (recorded at pickup)')}${stat(m.est,'Estimated servings available')}${stat(m.del,'Successful deliveries')}${stat(m.pend,'Pending pickups')}</div>
+ <div class="grid" style="margin-top:16px"><div class="card pad"><h3>Dispatch status</h3>${Object.entries(cnt).map(([k,v])=>`<div class="hb"><span>${k.replace('_',' ')}</span><b style="width:${100*v/mx}%;min-width:6px"></b><span>${v}</span></div>`).join('')}</div>
+ <div class="card pad"><h3>Recent activity</h3>${S.dis.slice().sort((a,b)=>b.cr.localeCompare(a.cr)).slice(0,5).map(d=>`<p class="m" style="margin:6px 0">${esc(d.id)} · ${esc(d.title)} ${tagOf(d.status)}</p>`).join('')}</div>
+ <div class="card pad"><h3>Quick actions</h3><div class="f"><a class="btn" href="#/donate">Create donation</a><a class="btn o" href="#/reports">Dispatch reports</a></div><p class="m">Reset demo data: <button class="btn o s" data-act="reset">Reset</button></p></div></div>`},
+donate(){return `<h2>Donate food</h2><div class="note">Submitting this form does not make food safe or approved. An admin/volunteer must verify handling before NGOs can request it. This is a local demo: nothing is sent to anyone. Contact details are validated but not stored.</div>
+ <div class="grid" style="grid-template-columns:2fr 1fr"><form id="df" class="card pad" novalidate>
+ <div class="row"><div><label for="donor">Organization name *</label><input id="donor" name="donor"><div class="err"></div></div><div><label for="contact">Contact email or phone *</label><input id="contact" name="contact"><div class="err"></div></div></div>
+ <label for="title">Food title *</label><input id="title" name="title"><div class="err"></div><label for="desc">Description</label><textarea id="desc" name="desc" rows="2"></textarea>
+ <div class="row"><div><label for="cat">Category</label><select id="cat" name="cat"><option>Cooked meals</option><option>Bakery</option><option>Produce</option><option>Packaged</option></select></div><div><label for="veg">Type</label><select id="veg" name="veg"><option>Vegetarian</option><option>Non-vegetarian</option></select></div></div>
+ <div class="row"><div><label for="qty">Quantity (kg) *</label><input id="qty" name="qty" type="number" step="0.1"><div class="err"></div></div><div><label for="serv">Estimated servings *</label><input id="serv" name="serv" type="number"><div class="err"></div></div></div>
+ <div class="row"><div><label for="prep">Prepared at *</label><input id="prep" name="prep" type="datetime-local"><div class="err"></div></div><div><label for="deadline">Pickup deadline *</label><input id="deadline" name="deadline" type="datetime-local"><div class="err"></div></div></div>
+ <label for="addr">Full pickup address *</label><input id="addr" name="addr"><div class="err"></div><label for="photo">Food photo (optional, image under 2 MB)</label><input id="photo" type="file" accept="image/*"><div class="err" id="pe"></div><img id="pv" alt="Selected food preview" hidden style="max-width:200px;border-radius:8px;margin-top:6px">
+ <label><input type="checkbox" name="c1" style="width:auto"> Food held at safe temperature</label><label><input type="checkbox" name="c2" style="width:auto"> Packed in clean, covered containers</label><label for="notes">Handling & storage notes</label><textarea id="notes" name="notes" rows="2"></textarea>
+ <p><button class="btn">Submit donation</button></p></form><div id="dprev"><div class="empty">Submitted donation preview appears here.</div></div></div>`},
+listings(){const f=window._lf||{};let r=S.don.filter(d=>(!f.q||(d.title+d.donor+d.desc).toLowerCase().includes(f.q.toLowerCase()))&&(!f.cat||d.cat===f.cat)&&(!f.area||d.area===f.area)&&(!f.st||dstate(d)===f.st));
+ r.sort((a,b)=>f.sort==='qty'?b.qty-a.qty:new Date(a.deadline)-new Date(b.deadline));const o=(a,v)=>a.map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('');
+ return `<h2>Food listings</h2><form id="lf" class="f card pad"><div><label for="q">Search</label><input id="q" name="q" value="${esc(f.q||'')}"></div><div><label>Category</label><select name="cat"><option value="">All</option>${o(['Cooked meals','Bakery','Produce','Packaged'],f.cat)}</select></div><div><label>Location</label><select name="area"><option value="">All</option>${o(['Central','North','South','East','Campus'],f.area)}</select></div>
+ <div><label>Status</label><select name="st"><option value="">All</option>${Object.keys(SL).map(k=>`<option value="${k}" ${f.st===k?'selected':''}>${SL[k][0]}</option>`).join('')}</select></div><div><label>Sort</label><select name="sort"><option value="deadline">Pickup deadline</option><option value="qty" ${f.sort==='qty'?'selected':''}>Quantity</option></select></div><button class="btn">Apply</button></form>
+ <p class="m">${r.length} result(s). Estimated servings are estimates, not confirmed meals.</p><div class="grid">${r.map(card).join('')||'<div class="empty">No donations match these filters.</div>'}</div>`},
+network(){const inc=S.req.filter(r=>r.st==='PENDING');
+ return `<h2>NGO and volunteer workspace</h2><div class="note">Simulated actions only. No real organizations or volunteers are contacted.</div>
+ <div class="card pad"><h3>NGO profile (demo)</h3><p class="m">Hope Community Kitchen (demo) · Verification: verified (sample) · Serves ~200 people/day (sample)</p></div>
+ <h2>Incoming requests (donor decision)</h2><div class="grid">${inc.map(r=>{const d=S.don.find(x=>x.id===r.did);return `<div class="card pad"><h3>${esc(d.title)}</h3><p class="m">Requested by ${esc(r.ngo)}</p><div class="f"><button class="btn s" data-act="approve" data-id="${r.id}">Approve</button><button class="btn r s" data-act="reject" data-id="${r.id}">Reject</button></div></div>`}).join('')||'<div class="empty">No pending requests.</div>'}</div>
+ <h2>Volunteer tasks</h2><div class="grid">${S.dis.filter(d=>TR[d.status]).map(d=>`<div class="card pad"><h3>${esc(d.title)}</h3>${tagOf(d.status)}<p class="m">Pickup: ${esc(d.donor)}<br>Destination: ${esc(d.rec)}<br>Volunteer: ${esc(d.vol||'unassigned')}</p>${flow(d.status)}${acts(d)}</div>`).join('')||'<div class="empty">No active tasks.</div>'}</div>`},
+reports(){const f=window._rp||{};let r=S.dis.filter(d=>(!f.st||d.status===f.st)&&(!f.q||(d.id+d.title+d.donor+d.rec).toLowerCase().includes(f.q.toLowerCase()))&&(!f.from||d.cr>=new Date(f.from).toISOString())&&(!f.to||d.cr<=new Date(f.to+'T23:59:59').toISOString()));
+ return `<h2>Surplus food dispatch report</h2><form id="rf" class="f card pad noprint"><div><label>Search</label><input name="q" value="${esc(f.q||'')}"></div><div><label>Status</label><select name="st"><option value="">All</option>${[...FLOW.slice(2),'CANCELLED','EXPIRED','REJECTED'].map(s=>`<option ${f.st===s?'selected':''}>${s}</option>`).join('')}</select></div><div><label>From</label><input type="date" name="from" value="${f.from||''}"></div><div><label>To</label><input type="date" name="to" value="${f.to||''}"></div><button class="btn">Filter</button></form>
+ <p class="noprint"><button class="btn o s" data-act="csv">Export CSV</button> <button class="btn o s" data-act="print">Print</button></p>
+ <table class="rt"><thead><tr><th>ID</th><th>Food</th><th>Donor → Recipient</th><th>Kg / est. servings</th><th>Volunteer</th><th>Picked up</th><th>Delivered</th><th>Status</th><th class="noprint">Action</th></tr></thead><tbody>${r.map(d=>`<tr><td data-l="ID">${esc(d.id)}</td><td data-l="Food">${esc(d.title)}</td><td data-l="Route">${esc(d.donor)} → ${esc(d.rec)}</td><td data-l="Kg/servings">${d.qc??'-'}/${d.qd??'-'} kg · est ${d.serv} · confirmed ${d.sc??'-'}</td><td data-l="Volunteer">${esc(d.vol||'-')}</td><td data-l="Picked">${fm(d.pk)}</td><td data-l="Delivered">${fm(d.dl)}</td><td data-l="Status">${tagOf(d.status)}${flow(d.status)}</td><td class="noprint">${acts(d)}</td></tr>`).join('')||'<tr><td colspan=9><div class="empty">No dispatches match.</div></td></tr>'}</tbody></table>`},
+impact(){const mo=[['Jun',210],['Jul',260],['Aug',340],['Sep',310],['Oct',420]],mx=420,m=M();
+ return `<h2>Impact</h2><div class="note">Monthly bars are illustrative sample data. Estimated servings are not confirmed meals.</div><div class="grid">${stat(m.kg+' kg','Recovered (live from demo records)')}${stat(S.don.reduce((a,d)=>a+d.serv,0),'Estimated servings listed')}${stat(m.conf,'Confirmed servings distributed')}${stat(m.del,'Confirmed deliveries')}${stat(new Set(S.dis.map(d=>d.donor)).size+' donors / '+new Set(S.dis.map(d=>d.rec)).size+' NGOs','Participating (demo)')}</div>
+ <h2>Monthly activity (kg, illustrative)</h2><div class="card pad"><div class="bars">${mo.map(x=>`<div><b style="height:${120*x[1]/mx}px"></b>${x[0]}<br>${x[1]}</div>`).join('')}</div></div>
+ <h2>Gallery</h2><div class="grid">${['g1','g2','g3','g4'].map(g=>pic(g,'Food recovery activity').replace('class="ph "','class="ph" style="height:200px;border-radius:12px" ')).join('')}</div>`},
+login(){const u=user();
+ if(u)return `<div class="auth1"><div class="card pad"><h2>You are logged in</h2><p><span class="tag">${esc(u.role)}</span> <strong>${esc(u.name)}</strong></p><p class="m">${esc(u.email)}</p><div class="f"><a class="btn" href="#/${u.home}">Continue</a><button class="btn o" data-act="logout">Log out</button></div></div></div>`;
+ return `<div class="auth"><form id="lgf" class="card pad" novalidate><h2>Log in</h2><p class="m">Sign in to donate surplus food, request it for your NGO, or manage deliveries.</p>
+ <label for="em">Email</label><input id="em" name="email" type="email" autocomplete="username" inputmode="email"><div class="err" id="eme"></div>
+ <label for="pw">Password</label><div class="pw"><input id="pw" name="password" type="password" autocomplete="current-password"><button type="button" class="btn o s" id="pwt" aria-pressed="false">Show</button></div><div class="err" id="pwe"></div>
+ <div class="err" id="lge" role="alert"></div>
+ <p><button class="btn" style="width:100%;justify-content:center">Log in</button></p></form>
+ <div class="card pad"><h3>Demo accounts</h3><p class="m">Pick a role to fill in the form. Password for all: <code>${DEMO_PW}</code></p>${ACCTS.map(a=>`<div class="acct"><div><span class="tag n">${a.role}</span><div class="m">${a.email}</div></div><button type="button" class="btn o s" data-act="demo" data-id="${a.email}">Use</button></div>`).join('')}
+ <div class="note">Demo only: these accounts are checked in the browser, so this is not real security. A production login needs a server that hashes passwords and issues tokens.</div></div></div>`},
+about(){return `<h2>About FoodBridge</h2><div class="grid"><div class="card pad"><h3>The problem</h3><p>Large amounts of cooked and fresh food go uneaten after weddings, events and daily service, while nearby communities go hungry. The gap is coordination, not just supply.</p></div><div class="card pad"><h3>The solution</h3><p>A shared platform where donors list surplus, verified NGOs request it, volunteers collect it, and delivery and distribution are recorded step by step.</p></div>
+ <div class="card pad"><h3>Objectives</h3><p>Reduce avoidable food waste, shorten the time from surplus to plate, and keep clear records of what was listed, collected, delivered and confirmed distributed.</p></div><div class="card pad"><h3>Future development</h3><p>Real backend and database, authentication, maps, notifications, food-safety audits and NGO verification.</p></div></div>
+ <div class="note"><strong>Limitations of this demo.</strong> Data lives only in this browser's localStorage and is not shared. Login uses fixed demo accounts checked in the browser, not real authentication. There is no map, notification or database. Client-side validation is not sufficient for production security; the server must re-validate and enforce permissions.</div>`}};
+const flow=s=>{const i=FLOW.indexOf(s);return `<div class="flow" aria-label="Workflow">${FLOW.slice(2).map((x,j)=>`<span class="${x===s?'on':i>-1&&FLOW.indexOf(x)<i?'done':''}">${x.replace('_',' ')}</span>`).join('')}</div>`};
+const acts=d=>(TR[d.status]||[]).map(t=>`<button class="btn s ${t==='CANCELLED'?'r':''}" data-act="adv" data-id="${d.id}" data-to="${t}">${t==='CANCELLED'?'Cancel':LBL[t]}</button>`).join(' ');
+/* ===== Router ===== */
+const NAV=[['home','Home'],['how','How It Works'],['listings','Food Listings'],['impact','Impact'],['about','About'],['dash','Dashboard'],['network','NGO & Volunteer'],['reports','Reports']];
+function route(){const p=(location.hash.replace('#/','')||'home');const pg=p==='how'?'home':p;$('#nav').innerHTML=NAV.map(([k,l])=>`<a href="#/${k}" class="${k===p?'on':''}">${l}</a>`).join('')+`<a href="#/login" class="mob ${p==='login'?'on':''}">${user()?'Account':'Login'}</a>`;renderAuth();$('#nav').classList.remove('open');
+ $('#app').innerHTML=(PG[pg]||PG.home)();bind();window.lucide&&lucide.createIcons();if(p==='how')$('#how')?.scrollIntoView();else scrollTo(0,0)}
+addEventListener('hashchange',route);$('#burger').onclick=()=>{const o=$('#nav').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
+/* ===== Actions ===== */
+function advance(id,to){const d=S.dis.find(x=>x.id===id);if(!(TR[d.status]||[]).includes(to))return toast('Invalid status change');
+ if(to==='PICKUP_ASSIGNED')d.vol='Demo Volunteer';if(to==='COLLECTED'){d.pk=new Date().toISOString();d.qc=d.qty}if(to==='DELIVERED'){d.dl=new Date().toISOString();d.qd=d.qc}if(to==='DISTRIBUTED')d.sc=Math.round(d.serv*.9);
+ d.status=to;save();toast('Simulated: '+d.id+' → '+to);route()}
+function csvCell(v){let s=String(v??'');if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'}
+document.addEventListener('click',ev=>{const b=ev.target.closest('[data-act]');if(!b)return;const a=b.dataset.act,id=b.dataset.id;
+ if(a==='logout'){sessionStorage.removeItem(SK);toast('Logged out');route()}
+ if(a==='demo'){const x=ACCTS.find(z=>z.email===id);if(x){$('#em').value=x.email;$('#pw').value=DEMO_PW;$('#lge').textContent='';$('#pw').focus()}}
+ if(a==='view'){const d=S.don.find(x=>x.id===id),s=dstate(d);$('#dlg').innerHTML=`${pic(d.img,'Donated food: '+d.title).replace('class="ph "','class="ph" style="height:200px" ')}<div class="pad"><h3>${esc(d.title)}</h3><span class="tag ${SL[s][1]}">${SL[s][0]}</span><p>${esc(d.desc||'')}</p><p class="m">${esc(d.donor)}<br>Pickup: ${esc(d.addr)}<br>Prepared ${fm(d.prep)} · Deadline ${fm(d.deadline)} (${left(d.deadline)})<br>${d.qty} kg · ~${d.serv} estimated servings<br>Notes: ${esc(d.notes||'-')}</p><div class="note">Actual suitability and handling must be confirmed before distribution. This listing is not a food-safety certificate.</div><div class="f"><button class="btn o" id="x">Close</button><button class="btn" data-act="request" data-id="${d.id}" ${s==='eligible'?'':'disabled'}>Request Food</button></div></div>`;$('#dlg').showModal();$('#x').onclick=()=>$('#dlg').close()}
+ if(a==='request'){const d=S.don.find(x=>x.id===id);if(dstate(d)!=='eligible')return toast('This donation cannot be requested.');if(S.req.some(r=>r.did===id&&r.st==='PENDING'&&r.ngo==='Hope Community Kitchen (demo)'))return toast('You already requested this donation.');
+  S.req.push({id:'R'+Date.now(),did:id,ngo:'Hope Community Kitchen (demo)',st:'PENDING'});save();$('#dlg').open&&$('#dlg').close();toast('Simulated request created. See NGO & Volunteer page.')}
+ if(a==='approve'){const r=S.req.find(x=>x.id===id),d=S.don.find(x=>x.id===r.did);if(dstate(d)!=='eligible')return toast('Donation no longer eligible.');r.st='APPROVED';S.req.filter(x=>x.did===d.id&&x.id!==r.id&&x.st==='PENDING').forEach(x=>x.st='REJECTED');d.status='ALLOCATED';
+  S.dis.push({id:'FB-'+(1001+S.dis.length),did:d.id,title:d.title,donor:d.donor,rec:r.ngo,vol:null,status:'APPROVED',qty:d.qty,serv:d.serv,pk:null,dl:null,qc:null,qd:null,sc:null,cr:new Date().toISOString()});save();toast('Request approved (simulated). Dispatch created.');route()}
+ if(a==='reject'){ask('Reject this request?',()=>{S.req.find(x=>x.id===id).st='REJECTED';save();route()})}
+ if(a==='adv'){const to=b.dataset.to;to==='CANCELLED'?ask('Cancel this dispatch? This cannot be undone.',()=>advance(id,to)):advance(id,to)}
+ if(a==='print')print();
+ if(a==='reset')ask('Reset all demo data?',()=>{S=seed();save();route();toast('Demo data reset')});
+ if(a==='csv'){const f=window._rp||{},h=['id','food','donor','recipient','volunteer','status','picked_up','delivered','kg_collected','kg_delivered','est_servings','confirmed_servings'];
+  const rows=S.dis.filter(d=>!f.st||d.status===f.st).map(d=>[d.id,d.title,d.donor,d.rec,d.vol,d.status,d.pk,d.dl,d.qc,d.qd,d.serv,d.sc].map(csvCell).join(','));
+  const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([[h.join(','),...rows].join('\n')],{type:'text/csv'}));l.download='dispatch-report.csv';l.click();toast('CSV exported')}});
+function bind(){const lg=$('#lgf');if(lg){const pw=$('#pw'),pt=$('#pwt');pt.onclick=()=>{const h=pw.type==='password';pw.type=h?'text':'password';pt.textContent=h?'Hide':'Show';pt.setAttribute('aria-pressed',h)};
+ lg.onsubmit=e=>{e.preventDefault();const em=$('#em'),v=em.value.trim().toLowerCase(),p=pw.value,er={};
+  if(!v)er.em='Enter your email';else if(!/^[^@\s]+@[^@\s]+\.\w+$/.test(v))er.em='Enter a valid email address';if(!p)er.pw='Enter your password';
+  $('#eme').textContent=er.em||'';$('#pwe').textContent=er.pw||'';em.classList.toggle('bad',!!er.em);pw.classList.toggle('bad',!!er.pw);$('#lge').textContent='';
+  if(er.em||er.pw)return;
+  const a=ACCTS.find(x=>x.email===v);if(!a||p!==DEMO_PW){$('#lge').textContent='Incorrect email or password.';pw.value='';pw.focus();return}
+  sessionStorage.setItem(SK,JSON.stringify({email:a.email,name:a.name,role:a.role,home:a.home}));toast('Logged in as '+a.role+' (demo)');location.hash='#/'+a.home}}
+ const lf=$('#lf');if(lf)lf.onsubmit=e=>{e.preventDefault();window._lf=Object.fromEntries(new FormData(lf));route()};
+ const rf=$('#rf');if(rf)rf.onsubmit=e=>{e.preventDefault();window._rp=Object.fromEntries(new FormData(rf));route()};
+ const ph=$('#photo');if(ph)ph.onchange=()=>{const f=ph.files[0],pe=$('#pe');pe.textContent='';$('#pv').hidden=true;if(!f)return;if(!f.type.startsWith('image/')||f.size>2e6){pe.textContent='Choose an image under 2 MB.';ph.value='';return}
+  const r=new FileReader();r.onload=()=>{$('#pv').src=r.result;$('#pv').hidden=false};r.readAsDataURL(f)};
+ const df=$('#df');if(df)df.onsubmit=e=>{e.preventDefault();const v=Object.fromEntries(new FormData(df)),er={};
+  if(!v.donor.trim())er.donor='Required';if(!(/^[^@\s]+@[^@\s]+\.\w+$/.test(v.contact.trim())||/^\+?[\d\s-]{8,15}$/.test(v.contact.trim())))er.contact='Enter a valid email or phone';if(!v.title.trim())er.title='Required';
+  if(!(+v.qty>0&&+v.qty<=5000))er.qty='Enter 0.1 to 5000 kg';if(!(+v.serv>0&&+v.serv<=20000))er.serv='Enter 1 to 20000';if(!v.addr.trim()||v.addr.trim().length<8)er.addr='Enter the full address';
+  const p=new Date(v.prep),d=new Date(v.deadline);if(isNaN(p))er.prep='Required';else if(p>Date.now()+3e5)er.prep='Cannot be in the future';if(isNaN(d))er.deadline='Required';else if(d<=Date.now())er.deadline='Deadline has passed';else if(d<=p)er.deadline='Must be after preparation time';
+  df.querySelectorAll('input,select,textarea').forEach(i=>{const m=er[i.name];i.classList.toggle('bad',!!m);const x=i.nextElementSibling;if(x&&x.classList.contains('err'))x.textContent=m||''});
+  if(Object.keys(er).length)return toast('Please fix the highlighted fields.');
+  const n={id:'D'+Date.now(),title:v.title.trim().slice(0,100),cat:v.cat,veg:v.veg,donor:v.donor.trim().slice(0,80),qty:+v.qty,serv:+v.serv,prep:v.prep,deadline:v.deadline,addr:v.addr.trim(),area:'Central',safety:'PENDING',status:'AVAILABLE',img:'f1',desc:v.desc,notes:v.notes};
+  S.don.unshift(n);save();$('#dprev').innerHTML='<p class="m">Preview (photo is not saved):</p>'+card(n)+'<div class="note">Status: pending verification. It cannot be requested until verified.</div>';toast('Donation submitted (demo). Pending verification.');df.reset()}}
+route();
+</script></body></html>
